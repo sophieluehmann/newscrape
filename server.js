@@ -4,6 +4,8 @@ var axios = require("axios");
 var mongoose = require("mongoose");
 var exphbs  = require('express-handlebars');
 
+var Article = require("./models/Article.js");
+
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://user1:password1@ds155864.mlab.com:55864/heroku_298hmhcd";
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
@@ -17,6 +19,10 @@ app.use(express.static("public"));
 
 var db = mongoose.connection;
 
+db.once("open", function() {
+	console.log("Mongoose connection successful.");
+});
+
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname + "./public/index.html"));
   });
@@ -26,13 +32,22 @@ app.get("/", function(req, res) {
     axios.get("https://news.sky.com/strangenews").then(function(response) {
       var $ = cheerio.load(response.data);
       $(".sdc-site-tile__body-main").each(function(i, element) {
-        var title = $("body > div.sdc-site-tiles > div > div > div:nth-child(" + i + ") > div > div > h3 > a > span").text();
-        console.log(title);
-        db.articles.insert({
-          title: title
-        });
 
+        var result = {};
+
+        result.title = $("body > div.sdc-site-tiles > div > div > div:nth-child(" + i + ") > div > div > h3 > a > span").text();
         
+        if (result.title) {
+        var newArticle = new Article(result);
+
+        newArticle.save(function(err, inserted) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(inserted);
+          }
+        });
+      };
       });
     
      
