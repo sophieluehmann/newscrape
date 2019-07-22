@@ -1,15 +1,40 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Newscrape - Mongo Scraper</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+        <form class="form-inline">
+            <button class="btn btn-outline-primary" type="button">Scrape Articles</button>
+            <button class="btn btn-outline-primary" type="button">Saved Articles</button>
+  </form>
+    </div>
+  </div>
+</nav>
+
+
+
 <ul>
-    {{#each Article}}
-        <li>
-            Title: 
-            {{this.title}}
-            <br>
-            Link: 
-            {{this.link}}
-        
-        </li>
-       
+    <div class="container">
+      {{#each Article}}
+      <div class="card border-dark mb-4 w-75 shadow p-3 mb-5 bg-white rounded">
+        <div class="card-body">
+           <h5 class="mr-auto">
+            <a class="article-link" href={{this.link}}>{{this.title}}</a>
+            </h5>
+            <span>
+            <button class="btn btn-primary" id="saved">
+              <a name="Saved-Article" style="color: #fff" title={{this.title}} link={{this.link}}>Save</a> 
+            </button>
+            </span> 
             
-    {{/each}}
+            
+        </div>
+      </div> 
+      {{/each}}  
+    </div>
+    
 </ul>
     

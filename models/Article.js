@@ -7,17 +7,17 @@ var ArticleSchema = new Schema({
     title: {
         type: String,
         require: true,
-        unique: true,
-        dropUps: true,
         useCreateIndex: true
     },
     link: {
         type: String,
         require: true,
-        unique: true,
-        dropUps: true,
         useCreateIndex: true
     },
+    saved: {
+        type: Boolean,
+        default: false
+    }
 });
 
 var Article = mongoose.model("Article", ArticleSchema);

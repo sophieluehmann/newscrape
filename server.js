@@ -47,7 +47,13 @@ app.get("/", function (req, res) {
       }
     });
 });
-  
+
+app.post("/save", function(req, res) {
+  console.log("req", req.body)
+
+  res.redirect("/");
+});
+
 
   app.get("/scrape", function(req, res) {
     axios.get("https://news.sky.com/strangenews").then(function(response) {
