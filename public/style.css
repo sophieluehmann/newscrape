@@ -1,3 +1,5 @@
-.navbar-brand {
-    color: red;
-}
+.jumbotron{
+	background-image: url('StrangeNews.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+} 
