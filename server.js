@@ -20,6 +20,7 @@ app.use(express.static("public"));
 
 app.use(methodOverride('_method'));
 
+
 app.set('views', __dirname + '/views');
 app.engine("handlebars", exphbs({ defaultLayout: "main", layoutsDir: __dirname + "/views/layouts" }));
 app.set("view engine", "handlebars");
@@ -39,10 +40,13 @@ app.get("/", function (req, res) {
         res.send(error);
       }
       else {
+       var imgSrc = "StrangeNews.png"
         var news = {
-          Article: data
+          Article: data,
+          imgSrc: imgSrc
         };
         //res.send(news);
+
         res.render("index", news);
       }
     });
@@ -50,7 +54,7 @@ app.get("/", function (req, res) {
 
 app.post("/save", function(req, res) {
   console.log("req", req.body)
-
+  
   res.redirect("/");
 });
 
