@@ -52,10 +52,18 @@ app.get("/", function (req, res) {
     });
 });
 
-app.post("/save", function(req, res) {
+/*app.post("/save", function(req, res) {
   console.log("req", req.body)
   
   res.redirect("/");
+});*/
+
+$(".btn").on("click", function() {
+  var link = $(this.children).attr("link");
+ app.post("/save", function(req, res) {
+      console.log(link)
+  });
+  console.log($(this.children).attr("link"));
 });
 
 
