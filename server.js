@@ -4,6 +4,7 @@ var axios = require("axios");
 var mongoose = require("mongoose");
 var methodOverride = require("method-override");
 var exphbs  = require('express-handlebars');
+var bodyParser = require('body-parser');
 
 var Article = require("./models/Article.js");
 
@@ -12,7 +13,11 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://user1:password1@ds155864
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 var app = express();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// parse application/json
+app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
@@ -40,10 +45,9 @@ app.get("/", function (req, res) {
         res.send(error);
       }
       else {
-       var imgSrc = "StrangeNews.png"
+       
         var news = {
           Article: data,
-          imgSrc: imgSrc
         };
         //res.send(news);
 
@@ -52,12 +56,18 @@ app.get("/", function (req, res) {
     });
 });
 
-app.post("/save", function(req, res) {
-  
-  Article.update({ link: req.body}, { saved: true });
-  console.log("database updated");
+app.post("/save", function(req, res) {  
  
+  Article.findOneAndUpdate({ link: req.body.link }, { saved: true })
+  .then(function(result) {
+    console.log(result);
+  })
+  .catch(function(err) {
+    console.log("err:" + err);
+  });
 });
+
+
 /*app.post("/save", function(req, res) {
   console.log("req", req.body)
   
