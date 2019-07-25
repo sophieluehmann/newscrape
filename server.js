@@ -67,13 +67,37 @@ app.post("/save", function(req, res) {
   });
 });
 
+app.post("/remove", function(req, res) {  
+ 
+  Article.findOneAndUpdate({ link: req.body.link }, { saved: false })
+  .then(function(result) {
+    console.log(result);
+  })
+  .catch(function(err) {
+    console.log("err:" + err);
+  });
+});
 
-/*app.post("/save", function(req, res) {
-  console.log("req", req.body)
-  
-  res.redirect("/");
-});*/
 
+
+
+app.get("/saved", function (req, res) {
+  Article.find({ saved: true })
+    .exec(function (error, data) {
+      if (error) {
+        res.send(error);
+      }
+      else {
+        var saved = {
+          Article: data
+        };
+
+        res.render("saved", saved);
+     
+      }
+    });
+    
+});
 
 
   app.get("/scrape", function(req, res) {

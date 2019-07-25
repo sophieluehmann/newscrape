@@ -15,31 +15,31 @@
   </div>
 </nav>
 
-
-<div class="container">
-  <div class="jumbotron" style="background-image: url(StrangeNews2.png); background-size: 100%; height: 550px;"></div>
-
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-4">Saved Articles</h1>
+  </div>
 </div>
-
-
 
 <ul>
     <div class="container" style="display: inline-block;">
       {{#each Article}}
+      {{#if saved}}
       <div class="card border-dark shadow p-3 mb-5 bg-white rounded">
         <div class="card-body">
            <h5 class="mr-auto">
             <a class="article-link" href={{this.link}}>{{this.title}}</a>
             </h5>
             <span>
-            <button class="btn btn-primary save" id="saved">
-              <a name="Saved-Article" style="color: #fff" title={{this.title}} link={{this.link}} id={{this._id}}>Save</a> 
+            <button class="btn btn-primary remove">
+              <a name="Saved-Article" style="color: #fff" title={{this.title}} link={{this.link}} id={{this._id}}>Remove</a> 
             </button>
             </span> 
             
             
         </div>
       </div> 
+      {{/if}}
       {{/each}}  
     </div>
     
