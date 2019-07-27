@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
+var Note = require("./Note");
 
 var ArticleSchema = new Schema({
     title: {
@@ -17,7 +18,9 @@ var ArticleSchema = new Schema({
     saved: {
         type: Boolean,
         default: false
-    }
+    },
+    notes: [{ type: Schema.ObjectId, ref: 'Note' }]
+    
 });
 
 var Article = mongoose.model("Article", ArticleSchema);
