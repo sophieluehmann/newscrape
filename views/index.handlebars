@@ -1,15 +1,15 @@
   <link rel="stylesheet" type="text/html" href="style.css">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Newscrape - Mongo Scraper</a>
+  <a class="navbar-brand" href="/">Newscrape - Mongo Scraper</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
         <form class="form-inline">
-            <button class="btn btn-outline-primary" id="scrape" type="button">Scrape Articles</button>
-            <button class="btn btn-outline-primary" id="saved" type="button">Saved Articles</button>
+            <a class="btn btn-outline-primary" id="scrape" type="button" href="/scrape">Scrape Articles</a>
+            <a class="btn btn-outline-primary allSaved " id="saved" type="button" href="/saved">Saved Articles</a>
   </form>
     </div>
   </div>
@@ -24,7 +24,7 @@
 
 
 <ul>
-    <div class="container" style="display: inline-block;">
+    <div class="container">
       {{#each Article}}
       <div class="card border-dark shadow p-3 mb-5 bg-white rounded">
         <div class="card-body">

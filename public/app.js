@@ -1,3 +1,7 @@
+$(document).on("click", "#scrape", function() {
+  
+})
+
 $(document).on("click", ".save", function() {
    
 //Whenever someone clicks the saved button, the post method is called using ajax sending info to server
@@ -13,14 +17,14 @@ $(document).on("click", ".save", function() {
         link
       }
     })
-      // With that done
+    
       .then(function(data) {
-        // Log the response
+    
         console.log(data);
       });
   });
 
-  $(document).on("click", "#saved", function() {
+  $(document).on("click", ".allSaved", function() {
     $.ajax({
         url: "/saved",
         type: "GET",
@@ -50,14 +54,46 @@ $(document).on("click", ".save", function() {
               .then(function(data) {
                 // Log the response
                 console.log(data);
+                
               });
+              location.reload();
           });
+
+  $(document).on("click", ".note", function() {
+    
+    var id = $(this.children).attr("id");
+    console.log(id);
+    $.ajax({
+      method: "GET",
+      url: "/savedNotes",
+      data: id
+    }).then(function(data) {
+      console.log(data);
+    })
+  })
         
     
-  // For Sophia to fill out as practice
-  // when clicking the saved articles button, should send get request to server and send back data from mongo with saved:true filtered to render display
-  $(document).on("click", ".savedArt", function() {
-    // Run a GET request with ajax to retrieve the saved articles
-    // Render saved articles on the DOM
-  });
+  
+  $(document).on("click", ".saveNote", function() {
+   
+    var newNote = {
+    text: $('.form-control').val().trim(),
+    article: $(this).attr("id")
+    }
+    
 
+    $.ajax({
+      method: "POST",
+      url: "/note",
+      data: newNote
+    })
+      .then(function(data) {
+        // Log the response
+        console.log(data);
+       
+      });   
+
+
+  })
+        
+  

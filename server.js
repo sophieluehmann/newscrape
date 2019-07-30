@@ -7,6 +7,7 @@ var exphbs  = require('express-handlebars');
 var bodyParser = require('body-parser');
 
 var Article = require("./models/Article.js");
+var Note = require("./models/Note.js")
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://user1:password1@ds155864.mlab.com:55864/heroku_298hmhcd";
 
@@ -14,7 +15,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 var app = express();
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
 app.use(bodyParser.json())
@@ -61,6 +62,7 @@ app.post("/save", function(req, res) {
   Article.findOneAndUpdate({ link: req.body.link }, { saved: true })
   .then(function(result) {
     console.log(result);
+    alert("Article saved!")
   })
   .catch(function(err) {
     console.log("err:" + err);
@@ -124,34 +126,56 @@ app.get("/saved", function (req, res) {
       };
        
       });
-      /*$(".sdc-site-tile__body-main").each(function(i, element) {
-        console.log(i);
-        var result = {};
-        
-        result.title = $("#load-more-list > div > div > div > div:nth-child(" + i + ") > div > div > h3 > a > span").text();
-        result.link = "https://news.sky.com/" +  $("#load-more-list > div > div > div > div:nth-child(" + i + ") > div > div > h3 > a > span").attr("href");
-
-        if (result.title && result.link) {
-        var newArticle = new Article(result);
-
-        newArticle.save(function(err, doc) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(doc);
-          }
-        });
-      };
-       
-      });
-
-    */
+    
       res.redirect("/");
 
     });
 
     
     
+  });
+
+  app.post("/note", function(req, res) {  
+  
+    var newNote = new Note(req.body);
+    newNote.save(function(err, doc) {
+      if (err) {
+        console.log(err);
+      } else {
+      
+        Article.findByIdAndUpdate({ _id: doc.article }, {$set: {notes: doc._id}})
+        .then(function(result) {
+          console.log(result);
+        })
+        .catch(function(err) {
+          console.log("err:" + err);
+        });
+        
+      }
+    });
+     
+  });
+    
+  app.get("/savedNotes", function (req, res) {
+    
+    // temp id 
+    var id = "5d3bbc1a2a1933abbbf35b44";
+   
+   // gets the id of the article but in an object
+    console.log(req.query);
+    Article
+    .findById({ _id: id })
+    .populate('notes')
+    .exec(function(err, result){
+      if (err) {
+        console.log(err);
+      } else {
+        var data = result.notes;
+        var note = data[0].text;
+        res.render('saved', {note})
+      }
+    })
+      
   });
   
 

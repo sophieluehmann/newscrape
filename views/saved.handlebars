@@ -1,15 +1,15 @@
   <link rel="stylesheet" type="text/html" href="style.css">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Newscrape - Mongo Scraper</a>
+  <a class="navbar-brand" href="/">Newscrape - Mongo Scraper</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
         <form class="form-inline">
-            <button class="btn btn-outline-primary" id="scrape" type="button">Scrape Articles</button>
-            <button class="btn btn-outline-primary" id="saved" type="button">Saved Articles</button>
+            <a class="btn btn-outline-primary" id="scrape" type="button" href="/scrape">Scrape Articles</a>
+            <a class="btn btn-outline-primary" id="saved" type="button" href="/saved">Saved Articles</a>
   </form>
     </div>
   </div>
@@ -22,15 +22,48 @@
 </div>
 
 <ul>
-    <div class="container" style="display: inline-block;">
+    <div class="container">
       {{#each Article}}
       {{#if saved}}
+      
       <div class="card border-dark shadow p-3 mb-5 bg-white rounded">
         <div class="card-body">
            <h5 class="mr-auto">
             <a class="article-link" href={{this.link}}>{{this.title}}</a>
             </h5>
             <span>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary note" data-toggle="modal" data-target="#notes">
+                <a name="Saved-Article" style="color: #fff" title={{this.title}} link={{this.link}} id={{this._id}}>Add Note</a> 
+                </button>
+
+                <!-- Modal -->
+                
+
+            <div class="modal fade" id="notes" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notesModalLabel">{{this.title}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    <div class="form-group">
+                        <label for="note-text" class="col-form-label">Note:</label>
+                        <textarea class="form-control" id={{this.link}}></textarea>
+                    </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary saveNote" id={{this._id}}>Save Note</button>
+                </div>
+                </div>
+            </div>
+            </div>
             <button class="btn btn-primary remove">
               <a name="Saved-Article" style="color: #fff" title={{this.title}} link={{this.link}} id={{this._id}}>Remove</a> 
             </button>
@@ -40,9 +73,16 @@
         </div>
       </div> 
       {{/if}}
-      {{/each}}  
+      {{/each}} 
+      
     </div>
-    
+     <div>
+                       {{#if note}}
+                    
+                        {{note}}
+                    
+                        {{/if}}
+                </div>
 </ul>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
