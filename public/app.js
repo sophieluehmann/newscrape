@@ -1,5 +1,5 @@
 $(document).on("click", "#scrape", function() {
-  
+  alert("Articles Scraped.");
 })
 
 $(document).on("click", ".save", function() {
@@ -24,7 +24,7 @@ $(document).on("click", ".save", function() {
       });
   });
 
-  $(document).on("click", ".allSaved", function() {
+  $(document).on("click", "#saved", function() {
     $.ajax({
         url: "/saved",
         type: "GET",
@@ -66,7 +66,7 @@ $(document).on("click", ".save", function() {
     $.ajax({
       method: "GET",
       url: "/savedNotes",
-      data: id
+      data: {_id: id}
     }).then(function(data) {
       console.log(data);
     })
@@ -93,7 +93,7 @@ $(document).on("click", ".save", function() {
        
       });   
 
-
+      alert("Note Saved");
   })
         
   

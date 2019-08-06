@@ -21,8 +21,9 @@
   </div>
 </div>
 
+<div class="container">
 <ul>
-    <div class="container">
+    
       {{#each Article}}
       {{#if saved}}
       
@@ -33,7 +34,7 @@
             </h5>
             <span>
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary note" data-toggle="modal" data-target="#notes">
+                <button type="button" class="note" data-toggle="modal" data-target="#notes">
                 <a name="Saved-Article" style="color: #fff" title={{this.title}} link={{this.link}} id={{this._id}}>Add Note</a> 
                 </button>
 
@@ -50,6 +51,9 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                  {{#if notes}}
+                  <div>note id: {{this.notes}}</div>
+                  {{/if}}
                     <form>
                     <div class="form-group">
                         <label for="note-text" class="col-form-label">Note:</label>
@@ -75,15 +79,11 @@
       {{/if}}
       {{/each}} 
       
-    </div>
-     <div>
-                       {{#if note}}
-                    
-                        {{note}}
-                    
-                        {{/if}}
-                </div>
+  
+  
+               
 </ul>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="app.js"></script>
