@@ -34,6 +34,8 @@ app.set("view engine", "handlebars");
 
 var db = mongoose.connection;
 
+var port = process.env.PORT || 3000;
+
 db.once("open", function() {
 	console.log("Mongoose connection successful.");
 });
@@ -56,6 +58,7 @@ app.get("/", function (req, res) {
         res.render("index", news);
       }
     });
+  
 });
 
 app.post("/save", function(req, res) {  
@@ -186,6 +189,6 @@ app.get("/saved", function (req, res) {
   });
   
 
-app.listen(3000, function() {
+app.listen(port, function() {
     console.log("app runnin on 3000");
 });
