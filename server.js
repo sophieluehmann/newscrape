@@ -58,7 +58,7 @@ app.get("/", function (req, res) {
         res.render("index", news);
       }
     });
-  
+    
 });
 
 app.post("/save", function(req, res) {  
