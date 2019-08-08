@@ -19,7 +19,7 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }))
 
 // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
